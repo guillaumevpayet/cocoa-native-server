@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B6052047F5DF0069A36A /* CocoaNativeServer.h */; };
+		F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6072047F5DF0069A36A /* CocoaNativeServer.m */; };
+		F034B6102047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */; };
+		F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */; };
+		F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F034B6022047F5DF0069A36A /* libNativeServer.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libNativeServer.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		F034B6052047F5DF0069A36A /* CocoaNativeServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaNativeServer.h; sourceTree = "<group>"; };
+		F034B6072047F5DF0069A36A /* CocoaNativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaNativeServer.m; sourceTree = "<group>"; };
+		F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h; sourceTree = "<group>"; };
+		F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h; sourceTree = "<group>"; };
+		F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F034B5FF2047F5DF0069A36A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F034B5F92047F5DF0069A36A = {
+			isa = PBXGroup;
+			children = (
+				F034B6042047F5DF0069A36A /* CocoaNativeServer */,
+				F034B6032047F5DF0069A36A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F034B6032047F5DF0069A36A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F034B6022047F5DF0069A36A /* libNativeServer.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F034B6042047F5DF0069A36A /* CocoaNativeServer */ = {
+			isa = PBXGroup;
+			children = (
+				F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */,
+				F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */,
+				F034B6052047F5DF0069A36A /* CocoaNativeServer.h */,
+				F034B6072047F5DF0069A36A /* CocoaNativeServer.m */,
+				F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */,
+			);
+			path = CocoaNativeServer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F034B6002047F5DF0069A36A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */,
+				F034B6102047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h in Headers */,
+				F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F034B6012047F5DF0069A36A /* CocoaNativeServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F034B60B2047F5DF0069A36A /* Build configuration list for PBXNativeTarget "CocoaNativeServer" */;
+			buildPhases = (
+				F034B5FE2047F5DF0069A36A /* Sources */,
+				F034B5FF2047F5DF0069A36A /* Frameworks */,
+				F034B6002047F5DF0069A36A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaNativeServer;
+			productName = CocoaNativeServer;
+			productReference = F034B6022047F5DF0069A36A /* libNativeServer.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F034B5FA2047F5DF0069A36A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Guillaume Payet";
+				TargetAttributes = {
+					F034B6012047F5DF0069A36A = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F034B5FD2047F5DF0069A36A /* Build configuration list for PBXProject "CocoaNativeServer" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F034B5F92047F5DF0069A36A;
+			productRefGroup = F034B6032047F5DF0069A36A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F034B6012047F5DF0069A36A /* CocoaNativeServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F034B5FE2047F5DF0069A36A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */,
+				F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F034B6092047F5DF0069A36A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F034B60A2047F5DF0069A36A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F034B60C2047F5DF0069A36A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = "/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/include/**";
+				PRODUCT_NAME = NativeServer;
+			};
+			name = Debug;
+		};
+		F034B60D2047F5DF0069A36A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = "/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/include/**";
+				PRODUCT_NAME = NativeServer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F034B5FD2047F5DF0069A36A /* Build configuration list for PBXProject "CocoaNativeServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F034B6092047F5DF0069A36A /* Debug */,
+				F034B60A2047F5DF0069A36A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F034B60B2047F5DF0069A36A /* Build configuration list for PBXNativeTarget "CocoaNativeServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F034B60C2047F5DF0069A36A /* Debug */,
+				F034B60D2047F5DF0069A36A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F034B5FA2047F5DF0069A36A /* Project object */;
+}
