@@ -56,12 +56,12 @@ static const char *serviceDictionaryFile = nil;
     self->thisObj = obj;
 
     jclass thisClass = (*env)->GetObjectClass(env, thisObj);
-
+    
     connectionStatusChanged = (*env)->GetMethodID(env,
                                                   thisClass,
                                                   "connectionStatusChanged",
                                                   "(Ljava/lang/String;)V");
-
+    
     stringReceived = (*env)->GetMethodID(env,
                                          thisClass,
                                          "stringReceived",
@@ -69,21 +69,25 @@ static const char *serviceDictionaryFile = nil;
 }
 
 - (void)openWithUuid:(jstring)uuidJStr {
-    NSString *file = [[NSString alloc] initWithUTF8String:serviceDictionaryFile];
-    NSDictionary *properties = [NSDictionary dictionaryWithContentsOfFile:file];
-
-    if (properties) {
-        const char *uuidCStr = (*env)->GetStringUTFChars(env, uuidJStr, nil);
-        NSString *uuidStr = [[NSString alloc] initWithUTF8String:uuidCStr];
-        NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:uuidStr];
-        uuid_t uuidBytes;
-        [uuid getUUIDBytes:uuidBytes];
-        NSData *data = [NSData dataWithBytes:uuidBytes length:16];
-
-        properties[@"0001 - ServiceClassIDList"][0] = data;
-        properties[@"0009 - BluetoothProfileDescriptorList"][0][0] = data;
-        serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:properties];
+    NSString *file = [NSString stringWithUTF8String:serviceDictionaryFile];
+    NSURL *url = [NSURL fileURLWithPath:file];
+    NSError *error;
+    NSDictionary *properties = [NSDictionary dictionaryWithContentsOfURL:url error:&error];
+    
+    if (!properties) {
+        @throw error;
     }
+    
+    const char *uuidCStr = (*env)->GetStringUTFChars(env, uuidJStr, nil);
+    NSString *uuidStr = [NSString stringWithUTF8String:uuidCStr];
+    NSUUID *uuid = [[NSUUID UUID] initWithUUIDString:uuidStr];
+    uuid_t uuidBytes;
+    [uuid getUUIDBytes:uuidBytes];
+    NSData *data = [NSData dataWithBytes:uuidBytes length:16];
+
+    properties[@"0001 - ServiceClassIDList"][0] = data;
+    properties[@"0009 - BluetoothProfileDescriptorList"][0][0] = data;
+    serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:properties];
 
     if (!serviceRecord) {
         @throw [NSException exceptionWithName:@"SDPException"

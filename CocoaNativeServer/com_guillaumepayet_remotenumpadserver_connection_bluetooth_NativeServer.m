@@ -21,7 +21,7 @@
 #import "CocoaNativeServer.h"
 
 
-static CocoaNativeServer *server;
+static CocoaNativeServer *server = nil;
 
 
 JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_open
@@ -29,10 +29,14 @@ JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection
     @autoreleasepool {
         server = [[CocoaNativeServer alloc] init];
         [server setEnv:env obj:obj];
-
+        
         @try {
             [server openWithUuid:uuid];
         } @catch (NSException *exception) {
+            fprintf(stderr, "%s", exception.reason.UTF8String);
+            return 0;
+        } @catch (NSError *error) {
+            fprintf(stderr, "%s", error.localizedFailureReason.UTF8String);
             return 0;
         }
     }
@@ -42,8 +46,10 @@ JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection
 
 JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_close
 (JNIEnv *env, jobject obj) {
-    [server close];
-    server = nil;
+    @autoreleasepool {
+        [server close];
+        server = nil;
+    }
 }
 
 JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_setProperty
