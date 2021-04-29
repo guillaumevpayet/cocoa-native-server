@@ -11,6 +11,8 @@
 		F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6072047F5DF0069A36A /* CocoaNativeServer.m */; };
 		F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */; };
 		F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */; };
+		F0A018AC263A4F640067850A /* RFCOMMChannelDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A018AA263A4F640067850A /* RFCOMMChannelDelegate.h */; };
+		F0A018AD263A4F640067850A /* RFCOMMChannelDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A018AB263A4F640067850A /* RFCOMMChannelDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		F034B6072047F5DF0069A36A /* CocoaNativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaNativeServer.m; sourceTree = "<group>"; };
 		F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h; sourceTree = "<group>"; };
 		F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m; sourceTree = "<group>"; };
+		F0A018AA263A4F640067850A /* RFCOMMChannelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFCOMMChannelDelegate.h; sourceTree = "<group>"; };
+		F0A018AB263A4F640067850A /* RFCOMMChannelDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFCOMMChannelDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		F034B6042047F5DF0069A36A /* CocoaNativeServer */ = {
 			isa = PBXGroup;
 			children = (
+				F0A018AA263A4F640067850A /* RFCOMMChannelDelegate.h */,
+				F0A018AB263A4F640067850A /* RFCOMMChannelDelegate.m */,
 				F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */,
 				F034B6052047F5DF0069A36A /* CocoaNativeServer.h */,
 				F034B6072047F5DF0069A36A /* CocoaNativeServer.m */,
@@ -68,6 +74,7 @@
 			files = (
 				F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */,
 				F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */,
+				F0A018AC263A4F640067850A /* RFCOMMChannelDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +137,7 @@
 			files = (
 				F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */,
 				F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */,
+				F0A018AD263A4F640067850A /* RFCOMMChannelDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

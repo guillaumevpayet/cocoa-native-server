@@ -64,10 +64,7 @@ static const char *serviceDictionaryFile = nil;
                                                   "connectionStatusChanged",
                                                   "(Ljava/lang/String;)V");
     
-    stringReceived = (*env)->GetMethodID(env,
-                                         thisClass,
-                                         "stringReceived",
-                                         "(Ljava/lang/String;)V");
+    delegate = [[RFCOMMChannelDelegate alloc] initWithEnv:env obj:obj];
     
     return self;
 }
@@ -156,7 +153,11 @@ static const char *serviceDictionaryFile = nil;
         notifIn = nil;
 
     [notification unregister];
-    [channel setDelegate:self];
+    
+    if ([channel delegate] != delegate) {
+        [channel setDelegate:delegate];
+    }
+    
     SEL selector = @selector(channelClosedNotification:channel:);
 
     notifOut = [channel registerForChannelCloseNotification:self
@@ -174,23 +175,9 @@ static const char *serviceDictionaryFile = nil;
         notifOut = nil;
 
     [notification unregister];
-    [channel setDelegate:nil];
     [channel closeChannel];
 
     dispatch_semaphore_signal(lock);
-}
-
-
-- (void)rfcommChannelData:(IOBluetoothRFCOMMChannel *)rfcommChannel
-                     data:(void *)dataPointer
-                   length:(size_t)dataLength {
-    printf("rfcommChannelData:data:length:\n");
-    
-    char *cStr = (char *)dataPointer;
-    cStr[dataLength - 1] = 0;
-    
-    printf("Received '%s'\n", cStr);
-    fflush(stdout);
 }
 
 

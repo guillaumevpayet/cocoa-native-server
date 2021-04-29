@@ -16,16 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#import <IOBluetooth/IOBluetooth.h>
-
-#import <jni.h>
+#import "RFCOMMChannelDelegate.h"
 
 
 @interface CocoaNativeServer : NSObject<IOBluetoothRFCOMMChannelDelegate> {
 @private
     JNIEnv *env;
     jobject thisObj;
-    jmethodID connectionStatusChanged, stringReceived;
+    jmethodID connectionStatusChanged;
+    RFCOMMChannelDelegate *delegate;
     volatile dispatch_semaphore_t lock;
     volatile IOBluetoothSDPServiceRecord *serviceRecord;
     volatile IOBluetoothUserNotification *notifIn;
@@ -44,10 +43,6 @@
                           channel:(IOBluetoothRFCOMMChannel *)channel;
 - (void)channelClosedNotification:(IOBluetoothUserNotification *)notification
                           channel:(IOBluetoothRFCOMMChannel *)channel;
-
-- (void)rfcommChannelData:(IOBluetoothRFCOMMChannel*)rfcommChannel
-                     data:(void *)dataPointer
-                   length:(size_t)dataLength;
 
 
 - (void)changeConnectionStatus:(const char *)statusCStr;
