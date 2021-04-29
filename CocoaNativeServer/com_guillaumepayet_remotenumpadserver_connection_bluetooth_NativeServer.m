@@ -1,6 +1,6 @@
 /*
  * Cocoa Native Server - a JNI server for Bluetooth interfacing for the Remote Numpad Server
- * Copyright (C) 2016-2018 Guillaume Payet
+ * Copyright (C) 2016-2021 Guillaume Payet
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,7 @@ static CocoaNativeServer *server = nil;
 JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_open
 (JNIEnv *env, jobject obj, jstring uuid) {
     @autoreleasepool {
-        server = [[CocoaNativeServer alloc] init];
-        [server setEnv:env obj:obj];
+        server = [[CocoaNativeServer alloc] initWithEnv:env obj:obj];
         
         @try {
             [server openWithUuid:uuid];

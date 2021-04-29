@@ -1,6 +1,6 @@
 /*
  * Cocoa Native Server - a JNI server for Bluetooth interfacing for the Remote Numpad Server
- * Copyright (C) 2016-2018 Guillaume Payet
+ * Copyright (C) 2016-2021 Guillaume Payet
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,20 +40,22 @@ static const char *serviceDictionaryFile = nil;
 }
 
 
-- (instancetype)init {
+- (instancetype)initWithEnv:(JNIEnv *)env obj:(jobject)obj {
+    printf("initWithEnv:obj:\n");
+    fflush(stdout);
+    
     self = [super init];
-
-    if (self) {
-        encoding = [NSString defaultCStringEncoding];
-        lock = dispatch_semaphore_create(0);
+    
+    if (self == nil) {
+        @throw [NSException exceptionWithName:@"InitException"
+                                       reason:@"Could not initialize native server."
+                                     userInfo:nil];
     }
-
-    return self;
-}
-
-- (void)setEnv:(JNIEnv *)env obj:(jobject)obj {
+    
     self->env = env;
     self->thisObj = obj;
+    
+    lock = dispatch_semaphore_create(0);
 
     jclass thisClass = (*env)->GetObjectClass(env, thisObj);
     
@@ -66,15 +68,20 @@ static const char *serviceDictionaryFile = nil;
                                          thisClass,
                                          "stringReceived",
                                          "(Ljava/lang/String;)V");
+    
+    return self;
 }
 
 - (void)openWithUuid:(jstring)uuidJStr {
+    printf("openWithUuid:\n");
+    fflush(stdout);
+    
     NSString *file = [NSString stringWithUTF8String:serviceDictionaryFile];
     NSURL *url = [NSURL fileURLWithPath:file];
     NSError *error;
     NSDictionary *properties = [NSDictionary dictionaryWithContentsOfURL:url error:&error];
     
-    if (!properties) {
+    if (properties == nil) {
         @throw error;
     }
     
@@ -89,7 +96,7 @@ static const char *serviceDictionaryFile = nil;
     properties[@"0009 - BluetoothProfileDescriptorList"][0][0] = data;
     serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:properties];
 
-    if (!serviceRecord) {
+    if (serviceRecord == nil) {
         @throw [NSException exceptionWithName:@"SDPException"
                                        reason:@"Could not register SDP service"
                                      userInfo:nil];
@@ -102,7 +109,7 @@ static const char *serviceDictionaryFile = nil;
     IOBluetoothUserNotificationChannelDirection direction = kIOBluetoothUserNotificationChannelDirectionIncoming;
     [self changeConnectionStatus:"SERVER_READY"];
 
-    while (serviceRecord) {
+    while (serviceRecord != nil) {
         notifIn = [IOBluetoothRFCOMMChannel registerForChannelOpenNotifications:self
                                                                        selector:selector
                                                                   withChannelID:channelID
@@ -119,17 +126,20 @@ static const char *serviceDictionaryFile = nil;
 }
 
 - (void)close {
-    if (notifOut) {
+    printf("close\n");
+    fflush(stdout);
+    
+    if (notifOut != nil) {
         [notifOut unregister];
         notifOut = nil;
     }
 
-    if (notifIn) {
+    if (notifIn != nil) {
         [notifIn unregister];
         notifIn = nil;
     }
 
-    if (serviceRecord) {
+    if (serviceRecord != nil) {
         [serviceRecord removeServiceRecord];
         serviceRecord = nil;
     }
@@ -139,6 +149,9 @@ static const char *serviceDictionaryFile = nil;
 
 - (void)channelOpenedNotification:(IOBluetoothUserNotification *)notification
                           channel:(IOBluetoothRFCOMMChannel *)channel {
+    printf("channelOpenedNotification:channel:\n");
+    fflush(stdout);
+    
     if ([notification isEqual:notifIn])
         notifIn = nil;
 
@@ -154,6 +167,9 @@ static const char *serviceDictionaryFile = nil;
 
 - (void)channelClosedNotification:(IOBluetoothUserNotification *)notification
                           channel:(IOBluetoothRFCOMMChannel *)channel {
+    printf("channelClosedNotification:channel:\n");
+    fflush(stdout);
+    
     if ([notification isEqual:notifOut])
         notifOut = nil;
 
@@ -168,30 +184,19 @@ static const char *serviceDictionaryFile = nil;
 - (void)rfcommChannelData:(IOBluetoothRFCOMMChannel *)rfcommChannel
                      data:(void *)dataPointer
                    length:(size_t)dataLength {
-    ((char *)dataPointer)[dataLength - 1] = 0;
-    [self receiveString:dataPointer];
+    printf("rfcommChannelData:data:length:\n");
+    
+    char *cStr = (char *)dataPointer;
+    cStr[dataLength - 1] = 0;
+    
+    printf("Received '%s'\n", cStr);
+    fflush(stdout);
 }
 
-
-- (jobject)statusFromStatusClass:(jclass)statusClass
-                   statusCString:(const char *)statusCStr
-          statusSignatureCString:(const char *)statusSigCStr {
-    jfieldID statusID = (*env)->GetStaticFieldID(env,
-                                                 statusClass,
-                                                 statusCStr,
-                                                 statusSigCStr);
-
-    return (*env)->GetStaticObjectField(env, statusClass, statusID);
-}
 
 - (void)changeConnectionStatus:(const char *)statusCStr {
     jstring statusJStr = (*env)->NewStringUTF(env, statusCStr);
     (*env)->CallVoidMethod(env, thisObj, connectionStatusChanged, statusJStr);
-}
-
-- (void)receiveString:(const char *)cStr {
-    jstring jStr = (*env)->NewStringUTF(env, cStr);
-    (*env)->CallVoidMethod(env, thisObj, stringReceived, jStr);
 }
 
 @end

@@ -1,6 +1,6 @@
 /*
  * Cocoa Native Server - a JNI server for Bluetooth interfacing for the Remote Numpad Server
- * Copyright (C) 2016-2018 Guillaume Payet
+ * Copyright (C) 2016-2021 Guillaume Payet
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@
     JNIEnv *env;
     jobject thisObj;
     jmethodID connectionStatusChanged, stringReceived;
-    NSStringEncoding encoding;
     volatile dispatch_semaphore_t lock;
     volatile IOBluetoothSDPServiceRecord *serviceRecord;
     volatile IOBluetoothUserNotification *notifIn;
@@ -36,9 +35,8 @@
 + (const char *)serviceDictionary;
 + (void)setServiceDictionary:(const char *)serviceDictionary;
 
-- (instancetype)init;
+- (instancetype)initWithEnv:(JNIEnv *)env obj:(jobject)obj;
 
-- (void)setEnv:(JNIEnv *)env obj:(jobject)obj;
 - (void)openWithUuid:(jstring)uuidJStr;
 - (void)close;
 
@@ -52,11 +50,6 @@
                    length:(size_t)dataLength;
 
 
-- (jobject)statusFromStatusClass:(jclass)statusClass
-                   statusCString:(const char *)statusCStr
-          statusSignatureCString:(const char *)statusSigCStr;
-
 - (void)changeConnectionStatus:(const char *)statusCStr;
-- (void)receiveString:(const char *)cStr;
 
 @end

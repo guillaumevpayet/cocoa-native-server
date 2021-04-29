@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B6052047F5DF0069A36A /* CocoaNativeServer.h */; };
 		F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6072047F5DF0069A36A /* CocoaNativeServer.m */; };
-		F034B6102047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */; };
 		F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */; };
 		F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */; };
 /* End PBXBuildFile section */
@@ -18,7 +17,6 @@
 		F034B6022047F5DF0069A36A /* libNativeServer.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libNativeServer.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		F034B6052047F5DF0069A36A /* CocoaNativeServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaNativeServer.h; sourceTree = "<group>"; };
 		F034B6072047F5DF0069A36A /* CocoaNativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaNativeServer.m; sourceTree = "<group>"; };
-		F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h; sourceTree = "<group>"; };
 		F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h; sourceTree = "<group>"; };
 		F034B6122047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,7 +51,6 @@
 		F034B6042047F5DF0069A36A /* CocoaNativeServer */ = {
 			isa = PBXGroup;
 			children = (
-				F034B60E2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h */,
 				F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */,
 				F034B6052047F5DF0069A36A /* CocoaNativeServer.h */,
 				F034B6072047F5DF0069A36A /* CocoaNativeServer.m */,
@@ -70,7 +67,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */,
-				F034B6102047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_Companion.h in Headers */,
 				F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,6 +184,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/guillaume/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home/include/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -237,6 +234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/guillaume/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home/include/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -250,7 +248,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "/Library/Java/JavaVirtualMachines/jdk-15.0.1.jdk/Contents/Home/include/**";
 				PRODUCT_NAME = NativeServer;
 			};
 			name = Debug;
@@ -262,7 +259,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "/Library/Java/JavaVirtualMachines/jdk-15.0.1.jdk/Contents/Home/include/**";
 				PRODUCT_NAME = NativeServer;
 			};
 			name = Release;
