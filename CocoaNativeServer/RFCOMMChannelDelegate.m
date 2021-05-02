@@ -18,9 +18,6 @@
 
 #import "RFCOMMChannelDelegate.h"
 
-#import <stdlib.h>
-#import <stdio.h>
-
 @implementation RFCOMMChannelDelegate
 
 - (instancetype)initWithEnv:(JNIEnv _Nonnull *_Nonnull)env obj:(jobject)obj {
@@ -43,31 +40,34 @@
                    length:(size_t)dataLength {
     char *cStr = dataPointer;
     cStr[dataLength - 1] = 0;
-    
-    printf("rfcommChannelData:data:'%s'length:\n", cStr);
-    fflush(stdout);
+    char *key = cStr + 1;
     
     CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
     CGKeyCode keyCode = 0;
     
-    if (cStr[1] >= '0' && cStr[1] <= '9')
-        keyCode = 0x52 + cStr[1] - '0';
-    else if (strcmp(cStr + 1, "backspace") == 0)
+    if (*key >= '0' && *key <= '7')
+        keyCode = 0x52 + *key - '0';
+    else if (strchr("89", *key))
+        keyCode = 0x5B + *key - '8';
+    else if (strcmp(key, "backspace") == 0)
         keyCode = 0x33;
-    else if (strcmp(cStr + 1, "enter") == 0)
+    else if (strcmp(key, "enter") == 0)
         keyCode = 0x4C;
-    else if (strcmp(cStr + 1, "*") == 0)
+    else if (strcmp(key, "*") == 0)
         keyCode = 0x43;
-    else if (strcmp(cStr + 1, "+") == 0)
+    else if (strcmp(key, "+") == 0)
         keyCode = 0x45;
-    else if (strcmp(cStr + 1, "-") == 0)
+    else if (strcmp(key, "-") == 0)
         keyCode = 0x4E;
-    else if (strcmp(cStr + 1, ".") == 0)
+    else if (strcmp(key, ".") == 0)
         keyCode = 0x41;
-    else if (strcmp(cStr + 1, "/") == 0)
+    else if (strcmp(key, "/") == 0)
         keyCode = 0x4B;
     
-    bool keyPressed = cStr[0] == '+';
+    if (keyCode == 0)
+        return;
+    
+    bool keyPressed = *cStr == '+';
     CGEventRef event = CGEventCreateKeyboardEvent(source, keyCode, keyPressed);
     
     if (event != nil) {
