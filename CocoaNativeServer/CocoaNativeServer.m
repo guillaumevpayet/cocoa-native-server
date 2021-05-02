@@ -21,29 +21,9 @@
 #import <stdlib.h>
 #import <stdio.h>
 
-
 @implementation CocoaNativeServer
 
-
-static const char *serviceDictionaryFile = nil;
-
-+ (const char *)serviceDictionary {
-    @synchronized(self) {
-        return serviceDictionaryFile;
-    }
-}
-
-+ (void)setServiceDictionary:(const char *)serviceDictionary {
-    @synchronized(self) {
-        serviceDictionaryFile = serviceDictionary;
-    }
-}
-
-
 - (instancetype)initWithEnv:(JNIEnv *)env obj:(jobject)obj {
-    printf("initWithEnv:obj:\n");
-    fflush(stdout);
-    
     self = [super init];
     
     if (self == nil) {
@@ -53,46 +33,30 @@ static const char *serviceDictionaryFile = nil;
     }
     
     self->env = env;
-    self->thisObj = obj;
-    
-    lock = dispatch_semaphore_create(0);
-
-    jclass thisClass = (*env)->GetObjectClass(env, thisObj);
-    
-    connectionStatusChanged = (*env)->GetMethodID(env,
-                                                  thisClass,
-                                                  "connectionStatusChanged",
-                                                  "(Ljava/lang/String;)V");
-    
-    delegate = [[RFCOMMChannelDelegate alloc] initWithEnv:env obj:obj];
-    
+    connectionManager = [[ConnectionManager alloc] initWithEnv:env obj:obj];
     return self;
 }
 
 - (void)openWithUuid:(jstring)uuidJStr {
-    printf("openWithUuid:\n");
-    fflush(stdout);
-    
-    NSString *file = [NSString stringWithUTF8String:serviceDictionaryFile];
-    NSURL *url = [NSURL fileURLWithPath:file];
-    NSError *error;
-    NSDictionary *properties = [NSDictionary dictionaryWithContentsOfURL:url error:&error];
-    
-    if (properties == nil) {
-        @throw error;
-    }
-    
     const char *uuidCStr = (*env)->GetStringUTFChars(env, uuidJStr, nil);
     NSString *uuidStr = [NSString stringWithUTF8String:uuidCStr];
     NSUUID *uuid = [[NSUUID UUID] initWithUUIDString:uuidStr];
     uuid_t uuidBytes;
     [uuid getUUIDBytes:uuidBytes];
-    NSData *data = [NSData dataWithBytes:uuidBytes length:16];
-
-    properties[@"0001 - ServiceClassIDList"][0] = data;
-    properties[@"0009 - BluetoothProfileDescriptorList"][0][0] = data;
-    serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:properties];
-
+    
+    NSDictionary *properties = @{
+        @"0001 - Service UUID":@[ [IOBluetoothSDPUUID dataWithBytes:uuidBytes length:16] ],
+        @"0004 - ProtocolDescriptorList":@[
+                @[
+                    [IOBluetoothSDPUUID dataWithBytes:"\x00\x03" length:2],
+                    @3
+                ]
+        ],
+        @"0100 - Service Name":@"Remote Numpad",
+    };
+    
+    IOBluetoothSDPServiceRecord *serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:properties];
+    
     if (serviceRecord == nil) {
         @throw [NSException exceptionWithName:@"SDPException"
                                        reason:@"Could not register SDP service"
@@ -102,88 +66,187 @@ static const char *serviceDictionaryFile = nil;
     BluetoothRFCOMMChannelID channelID;
     [serviceRecord getRFCOMMChannelID:&channelID];
 
-    SEL selector = @selector(channelOpenedNotification:channel:);
-    IOBluetoothUserNotificationChannelDirection direction = kIOBluetoothUserNotificationChannelDirectionIncoming;
-    [self changeConnectionStatus:"SERVER_READY"];
+    while (connectionManager != nil) {
+        [connectionManager startListeningToChannel:channelID];
+    }
 
-    while (serviceRecord != nil) {
-        notifIn = [IOBluetoothRFCOMMChannel registerForChannelOpenNotifications:self
-                                                                       selector:selector
-                                                                  withChannelID:channelID
-                                                                      direction:direction];
-
-        dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
-
-        if (notifOut != nil) {
-            [self changeConnectionStatus:"CLIENT_CONNECTED"];
-            dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
-            [self changeConnectionStatus:"CLIENT_DISCONNECTED"];
+    if (serviceRecord != nil) {
+        IOReturn result = [serviceRecord removeServiceRecord];
+        printf("Removing the service record yields a '");
+        
+        switch (result) {
+            case kIOReturnSuccess:
+                printf("kIOReturnSuccess");
+                break;
+            case kIOReturnError:
+                printf("kIOReturnError");
+                break;
+            case kIOReturnNoMemory:
+                printf("kIOReturnNoMemory");
+                break;
+            case kIOReturnNoResources:
+                printf("kIOReturnNoResources");
+                break;
+            case kIOReturnIPCError:
+                printf("kIOReturnIPCError");
+                break;
+            case kIOReturnNoDevice:
+                printf("kIOReturnNoDevice");
+                break;
+            case kIOReturnNotPrivileged:
+                printf("kIOReturnNotPrivileged");
+                break;
+            case kIOReturnBadArgument:
+                printf("kIOReturnBadArgument");
+                break;
+            case kIOReturnLockedRead:
+                printf("kIOReturnLockedRead");
+                break;
+            case kIOReturnLockedWrite:
+                printf("kIOReturnLockedWrite");
+                break;
+            case kIOReturnExclusiveAccess:
+                printf("kIOReturnExclusiveAccess");
+                break;
+            case kIOReturnBadMessageID:
+                printf("kIOReturnBadMessageID");
+                break;
+            case kIOReturnUnsupported:
+                printf("kIOReturnUnsupported");
+                break;
+            case kIOReturnVMError:
+                printf("kIOReturnVMError");
+                break;
+            case kIOReturnInternalError:
+                printf("kIOReturnInternalError");
+                break;
+            case kIOReturnIOError:
+                printf("kIOReturnIOError");
+                break;
+            case kIOReturnCannotLock:
+                printf("kIOReturnCannotLock");
+                break;
+            case kIOReturnNotOpen:
+                printf("kIOReturnNotOpen");
+                break;
+            case kIOReturnNotReadable:
+                printf("kIOReturnNotReadable");
+                break;
+            case kIOReturnNotWritable:
+                printf("kIOReturnNotWritable");
+                break;
+            case kIOReturnNotAligned:
+                printf("kIOReturnNotAligned");
+                break;
+            case kIOReturnBadMedia:
+                printf("kIOReturnBadMedia");
+                break;
+            case kIOReturnStillOpen:
+                printf("kIOReturnStillOpen");
+                break;
+            case kIOReturnRLDError:
+                printf("kIOReturnRLDError");
+                break;
+            case kIOReturnDMAError:
+                printf("kIOReturnDMAError");
+                break;
+            case kIOReturnBusy:
+                printf("kIOReturnBusy");
+                break;
+            case kIOReturnTimeout:
+                printf("kIOReturnTimeout");
+                break;
+            case kIOReturnOffline:
+                printf("kIOReturnOffline");
+                break;
+            case kIOReturnNotReady:
+                printf("kIOReturnNotReady");
+                break;
+            case kIOReturnNotAttached:
+                printf("kIOReturnNotAttached");
+                break;
+            case kIOReturnNoChannels:
+                printf("kIOReturnNoChannels");
+                break;
+            case kIOReturnNoSpace:
+                printf("kIOReturnNoSpace");
+                break;
+            case kIOReturnPortExists:
+                printf("kIOReturnPortExists");
+                break;
+            case kIOReturnCannotWire:
+                printf("kIOReturnCannotWire");
+                break;
+            case kIOReturnNoInterrupt:
+                printf("kIOReturnNoInterrupt");
+                break;
+            case kIOReturnNoFrames:
+                printf("kIOReturnNoFrames");
+                break;
+            case kIOReturnMessageTooLarge:
+                printf("kIOReturnMessageTooLarge");
+                break;
+            case kIOReturnNotPermitted:
+                printf("kIOReturnNotPermitted");
+                break;
+            case kIOReturnNoPower:
+                printf("kIOReturnNoPower");
+                break;
+            case kIOReturnNoMedia:
+                printf("kIOReturnNoMedia");
+                break;
+            case kIOReturnUnformattedMedia:
+                printf("kIOReturnUnformattedMedia");
+                break;
+            case kIOReturnUnsupportedMode:
+                printf("kIOReturnUnsupportedMode");
+                break;
+            case kIOReturnUnderrun:
+                printf("kIOReturnUnderrun");
+                break;
+            case kIOReturnOverrun:
+                printf("kIOReturnOverrun");
+                break;
+            case kIOReturnDeviceError:
+                printf("kIOReturnDeviceError");
+                break;
+            case kIOReturnNoCompletion:
+                printf("kIOReturnNoCompletion");
+                break;
+            case kIOReturnAborted:
+                printf("kIOReturnAborted");
+                break;
+            case kIOReturnNoBandwidth:
+                printf("kIOReturnNoBandwidth");
+                break;
+            case kIOReturnNotResponding:
+                printf("kIOReturnNotResponding");
+                break;
+            case kIOReturnIsoTooOld:
+                printf("kIOReturnIsoTooOld");
+                break;
+            case kIOReturnIsoTooNew:
+                printf("kIOReturnIsoTooNew");
+                break;
+            case kIOReturnNotFound:
+                printf("kIOReturnNotFound");
+                break;
+            case kIOReturnInvalid:
+                printf("kIOReturnInvalid");
+                break;
+            default:
+                printf("Something else.");
         }
+        
+        printf("'.\n");
+        fflush(stdout);
     }
 }
 
 - (void)close {
-    printf("close\n");
-    fflush(stdout);
-    
-    if (notifOut != nil) {
-        [notifOut unregister];
-        notifOut = nil;
-    }
-
-    if (notifIn != nil) {
-        [notifIn unregister];
-        notifIn = nil;
-    }
-
-    if (serviceRecord != nil) {
-        [serviceRecord removeServiceRecord];
-        serviceRecord = nil;
-    }
-
-    dispatch_semaphore_signal(lock);
-}
-
-- (void)channelOpenedNotification:(IOBluetoothUserNotification *)notification
-                          channel:(IOBluetoothRFCOMMChannel *)channel {
-    printf("channelOpenedNotification:channel:\n");
-    fflush(stdout);
-    
-    if ([notification isEqual:notifIn])
-        notifIn = nil;
-
-    [notification unregister];
-    
-    if ([channel delegate] != delegate) {
-        [channel setDelegate:delegate];
-    }
-    
-    SEL selector = @selector(channelClosedNotification:channel:);
-
-    notifOut = [channel registerForChannelCloseNotification:self
-                                                   selector:selector];
-
-    dispatch_semaphore_signal(lock);
-}
-
-- (void)channelClosedNotification:(IOBluetoothUserNotification *)notification
-                          channel:(IOBluetoothRFCOMMChannel *)channel {
-    printf("channelClosedNotification:channel:\n");
-    fflush(stdout);
-    
-    if ([notification isEqual:notifOut])
-        notifOut = nil;
-
-    [notification unregister];
-    [channel closeChannel];
-
-    dispatch_semaphore_signal(lock);
-}
-
-
-- (void)changeConnectionStatus:(const char *)statusCStr {
-    jstring statusJStr = (*env)->NewStringUTF(env, statusCStr);
-    (*env)->CallVoidMethod(env, thisObj, connectionStatusChanged, statusJStr);
+    volatile ConnectionManager *connectionManager = self->connectionManager;
+    self->connectionManager = nil;
+    [connectionManager stopListening];
 }
 
 @end

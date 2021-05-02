@@ -20,9 +20,7 @@
 
 #import "CocoaNativeServer.h"
 
-
 static CocoaNativeServer *server = nil;
-
 
 JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_open
 (JNIEnv *env, jobject obj, jstring uuid) {
@@ -48,16 +46,5 @@ JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_blu
     @autoreleasepool {
         [server close];
         server = nil;
-    }
-}
-
-JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_setProperty
-(JNIEnv *env, jobject obj, jstring key, jstring value) {
-    @autoreleasepool {
-        const char *keyCStr = (*env)->GetStringUTFChars(env, key, nil);
-
-        if (strcmp(keyCStr, "service_dictionary") == 0) {
-            CocoaNativeServer.serviceDictionary = (*env)->GetStringUTFChars(env, value, nil);
-        }
     }
 }

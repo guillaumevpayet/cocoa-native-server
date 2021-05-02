@@ -20,7 +20,6 @@
 
 #import <jni.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RFCOMMChannelDelegate : NSObject<IOBluetoothRFCOMMChannelDelegate> {
@@ -30,8 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     jmethodID stringReceived;
 }
 
-- (instancetype)initWithEnv:(JNIEnv _Nonnull *_Nonnull)env
-                        obj:(jobject)obj;
+- (instancetype)initWithEnv:(JNIEnv _Nonnull *_Nonnull)env obj:(jobject) obj;
 
 - (void)rfcommChannelData:(IOBluetoothRFCOMMChannel*)rfcommChannel
                      data:(void *)dataPointer

@@ -23,14 +23,6 @@ JNIEXPORT jboolean JNICALL Java_com_guillaumepayet_remotenumpadserver_connection
 JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_close
   (JNIEnv *, jobject);
 
-/*
- * Class:     com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer
- * Method:    setProperty
- * Signature: (Ljava/lang/String;Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer_setProperty
-  (JNIEnv *, jobject, jstring, jstring);
-
 #ifdef __cplusplus
 }
 #endif

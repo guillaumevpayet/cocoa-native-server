@@ -21,11 +21,9 @@
 #import <stdlib.h>
 #import <stdio.h>
 
-
 @implementation RFCOMMChannelDelegate
 
-- (instancetype)initWithEnv:(JNIEnv  _Nonnull *)env
-                        obj:(jobject)obj {
+- (instancetype)initWithEnv:(JNIEnv _Nonnull *_Nonnull)env obj:(jobject)obj {
     self = [super init];
     self->env = env;
     self->obj = obj;
@@ -46,7 +44,7 @@
     char *cStr = dataPointer;
     cStr[dataLength - 1] = 0;
     
-    printf("rfcommChannelData:data:length: where data='%s'\n", cStr);
+    printf("rfcommChannelData:data:'%s'length:\n", cStr);
     fflush(stdout);
     
     CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
@@ -81,7 +79,7 @@
         CFRelease(source);
     
 //    jstring jStr = (*env)->NewStringUTF(env, cStr);
-//    (*env)->CallVoidMethod(env, thisObj, stringReceived, jStr);
+//    (*env)->CallVoidMethod(env, obj, stringReceived, jStr);
 }
 
 @end

@@ -16,35 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#import "RFCOMMChannelDelegate.h"
+#import "ConnectionManager.h"
 
-
-@interface CocoaNativeServer : NSObject<IOBluetoothRFCOMMChannelDelegate> {
+@interface CocoaNativeServer : NSObject {
 @private
     JNIEnv *env;
-    jobject thisObj;
-    jmethodID connectionStatusChanged;
-    RFCOMMChannelDelegate *delegate;
-    volatile dispatch_semaphore_t lock;
-    volatile IOBluetoothSDPServiceRecord *serviceRecord;
-    volatile IOBluetoothUserNotification *notifIn;
-    volatile IOBluetoothUserNotification *notifOut;
+    volatile ConnectionManager *connectionManager;
 }
-
-+ (const char *)serviceDictionary;
-+ (void)setServiceDictionary:(const char *)serviceDictionary;
 
 - (instancetype)initWithEnv:(JNIEnv *)env obj:(jobject)obj;
 
 - (void)openWithUuid:(jstring)uuidJStr;
 - (void)close;
-
-- (void)channelOpenedNotification:(IOBluetoothUserNotification *)notification
-                          channel:(IOBluetoothRFCOMMChannel *)channel;
-- (void)channelClosedNotification:(IOBluetoothUserNotification *)notification
-                          channel:(IOBluetoothRFCOMMChannel *)channel;
-
-
-- (void)changeConnectionStatus:(const char *)statusCStr;
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F03087D8263E7CEF0076270C /* StatusManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F03087D4263E7CEF0076270C /* StatusManager.h */; };
+		F03087D9263E7CEF0076270C /* ConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F03087D5263E7CEF0076270C /* ConnectionManager.h */; };
+		F03087DA263E7CEF0076270C /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F03087D6263E7CEF0076270C /* ConnectionManager.m */; };
+		F03087DB263E7CEF0076270C /* StatusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F03087D7263E7CEF0076270C /* StatusManager.m */; };
 		F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B6052047F5DF0069A36A /* CocoaNativeServer.h */; };
 		F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F034B6072047F5DF0069A36A /* CocoaNativeServer.m */; };
 		F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F03087D4263E7CEF0076270C /* StatusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusManager.h; sourceTree = "<group>"; };
+		F03087D5263E7CEF0076270C /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
+		F03087D6263E7CEF0076270C /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
+		F03087D7263E7CEF0076270C /* StatusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusManager.m; sourceTree = "<group>"; };
 		F034B6022047F5DF0069A36A /* libNativeServer.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libNativeServer.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		F034B6052047F5DF0069A36A /* CocoaNativeServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaNativeServer.h; sourceTree = "<group>"; };
 		F034B6072047F5DF0069A36A /* CocoaNativeServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaNativeServer.m; sourceTree = "<group>"; };
@@ -55,6 +63,10 @@
 		F034B6042047F5DF0069A36A /* CocoaNativeServer */ = {
 			isa = PBXGroup;
 			children = (
+				F03087D5263E7CEF0076270C /* ConnectionManager.h */,
+				F03087D6263E7CEF0076270C /* ConnectionManager.m */,
+				F03087D4263E7CEF0076270C /* StatusManager.h */,
+				F03087D7263E7CEF0076270C /* StatusManager.m */,
 				F0A018AA263A4F640067850A /* RFCOMMChannelDelegate.h */,
 				F0A018AB263A4F640067850A /* RFCOMMChannelDelegate.m */,
 				F034B60F2047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h */,
@@ -72,7 +84,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F03087D8263E7CEF0076270C /* StatusManager.h in Headers */,
 				F034B6112047FD420069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.h in Headers */,
+				F03087D9263E7CEF0076270C /* ConnectionManager.h in Headers */,
 				F034B6062047F5DF0069A36A /* CocoaNativeServer.h in Headers */,
 				F0A018AC263A4F640067850A /* RFCOMMChannelDelegate.h in Headers */,
 			);
@@ -136,6 +150,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F034B6132047FD690069A36A /* com_guillaumepayet_remotenumpadserver_connection_bluetooth_NativeServer.m in Sources */,
+				F03087DB263E7CEF0076270C /* StatusManager.m in Sources */,
+				F03087DA263E7CEF0076270C /* ConnectionManager.m in Sources */,
 				F034B6082047F5DF0069A36A /* CocoaNativeServer.m in Sources */,
 				F0A018AD263A4F640067850A /* RFCOMMChannelDelegate.m in Sources */,
 			);
